@@ -12,13 +12,17 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
-    
-    pass
+    list_display = [
+        "user",
+        "first_name",
+        "last_name",
+    ]
 
 
 class MembersInline(admin.TabularInline):
     model = MemberOfProject
     extra = 1
+
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
@@ -27,4 +31,5 @@ class ProjectAdmin(admin.ModelAdmin):
         'title',
         'owner',
         'shrot_description',
-        'start_date', ]
+        'start_date',
+    ]

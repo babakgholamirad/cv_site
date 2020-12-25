@@ -19,7 +19,7 @@ class Project(models.Model):
     title = models.CharField(max_length=200, blank=True)
     owner = models.ForeignKey('cv.User', on_delete=models.SET_NULL, null=True)
     members = models.ManyToManyField(
-        'cv.User', through='MemberOfProject', related_name='member_projects')
+        'cv.Member', through='MemberOfProject', related_name='member_projects')
     description = models.TextField(null=True)
     start_date = models.DateTimeField()
 
@@ -31,7 +31,7 @@ class Project(models.Model):
 
 
 class MemberOfProject(models.Model):
-    member = models.ForeignKey('cv.Memebr', on_delete=models.CASCADE)
+    member = models.ForeignKey('cv.Member', on_delete=models.CASCADE)
     project = models.ForeignKey('cv.Project', on_delete=models.CASCADE)
     role_in_project = models.CharField(max_length=150, null=False, blank=False)
     date_joined = models.DateTimeField()
