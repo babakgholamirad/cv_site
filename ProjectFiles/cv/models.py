@@ -9,6 +9,12 @@ class User(AbstractUser):
     image = models.ImageField(upload_to='images/', null=True, blank=True)
 
 
+class Member(models.Model):
+    user = models.ForeignKey("cv.User", null=True, blank=True, on_delete=models.SET_NULL)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+
+
 class Project(models.Model):
     title = models.CharField(max_length=200, blank=True)
     owner = models.ForeignKey('cv.User', on_delete=models.SET_NULL, null=True)
@@ -25,8 +31,8 @@ class Project(models.Model):
 
 
 class MemberOfProject(models.Model):
-    member = models.ForeignKey('cv.User', on_delete=models.CASCADE)
+    member = models.ForeignKey('cv.Memebr', on_delete=models.CASCADE)
     project = models.ForeignKey('cv.Project', on_delete=models.CASCADE)
-    role_in_project = models.CharField(max_length=100, null=False, blank=False)
+    role_in_project = models.CharField(max_length=150, null=False, blank=False)
     date_joined = models.DateTimeField()
     date_left = models.DateTimeField()

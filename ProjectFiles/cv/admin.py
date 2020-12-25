@@ -1,12 +1,18 @@
 from django.contrib import admin
 
-from .models import MemberOfProject, Project, User
+from .models import MemberOfProject, Project, User, Member
 
 # Register your models here.
 
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Member)
+class MemberAdmin(admin.ModelAdmin):
+    
     pass
 
 
