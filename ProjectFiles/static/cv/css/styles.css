@@ -157,19 +157,19 @@ a.white {
 .btn-solid-lg {
 	display: inline-block;
 	padding: 1.375rem 2.625rem 1.375rem 2.625rem;
-	border: 0.125rem solid #00bfd8;
+	border: 0.125rem solid #35878c;
 	border-radius: 2rem;
 	background-color: #00bfd8;
 	color: #fff;
-	font: 700 0.75rem/0 "Raleway", sans-serif;
+	font: 700 20px "Raleway", sans-serif;
 	text-decoration: none;
 	transition: all 0.2s;
 }
 
 .btn-solid-lg:hover {
-	background-color: transparent;
-	color: #00bfd8;
-	text-decoration: none;
+    background-color: transparent;
+    color: #35878c;
+    text-decoration: none;
 }
 
 .btn-outline-reg {
@@ -656,10 +656,11 @@ input[type='checkbox'] {
 }
 
 .navbar-custom .nav-item .nav-link {
-	padding: 0.625rem 0.75rem 0.625rem 0.75rem;
-	color: #393939;
-	text-decoration: none;
+    padding: 0.625rem 0.75rem 0.625rem 0.75rem;
+    color: #393939;
+    text-decoration: none;
 	transition: all 0.2s ease;
+	font-size: 16px;
 }
 
 .navbar-custom .nav-item .nav-link:hover,
@@ -1722,9 +1723,6 @@ a:hover.back-to-top {
 
 	.ex-basic-2 .text-container.dark {
 		padding: 2.5rem 3rem 2rem 3rem;
-	}
-
-	.ex-basic-2 .text-container.column {
 		width: 90%;
 		margin-right: auto;
 		margin-left: auto;
@@ -2017,7 +2015,7 @@ a:hover.back-to-top {
 	}
 
 	.navbar-custom.top-nav-collapse {
-        padding: 0.5rem 5rem 0.5rem 5rem;
+		padding: 1.3rem 5rem 1.3rem 5rem;
 	}
 	/* end of navigation */
 
@@ -2180,3 +2178,7 @@ a:hover.back-to-top {
 	/* end of extra pages */
 }
 /* end of min-width width 1200px */
+
+.nav-item .a{
+	font-size:16px;
+}
