@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+
+<html lang="en">
+
+<head>
+    <title>Operation Faild!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'account/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'account/css/style.css' %}">
+    
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'account/vendor/bootstrap/css/bootstrap.css' %}">
+</head>
+
+<body>
+    <div class="main">
+        <!-- Sing in  Form -->
+        <section class="sign-in">
+            <div class="container">
+                <div align="center">
+                    <img align="center" src="{% static 'account/images/' %}{{ icon }}" style="max-width=130px !important;"/>
+                    <p align="center">{{ message }}</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="dropDownSelect1"></div>
+
+    <!-- JS -->
+    <script src="{% static 'account/vendor/jquery/jquery.min.js' %}"></script>
+
+</body>
+
+</html>

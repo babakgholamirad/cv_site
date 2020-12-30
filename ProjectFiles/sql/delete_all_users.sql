@@ -1,0 +1,1 @@
+DELETE FROM cv_user WHERE id!=1;

@@ -3,9 +3,9 @@ from django.shortcuts import render
 # Create your views here.
 
 
-def about(request):
+def home(request):
 
-    return render(request,'cv/about.html')
+    return render(request,'cv/home.html')
 
 def test(request):
 
