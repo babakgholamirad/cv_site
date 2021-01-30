@@ -16,6 +16,12 @@ from django.contrib.auth.views import LoginView
 class MyLoginView(LoginView):
     template_name = 'accounts/login.html'
 
+class DashboardView(LoginView):
+    template_name = 'accounts/dashboard-base.html'
+
+class ProjectsView(LoginView):
+    template_name = 'accounts/dashboard-projects.html'
+
 
 def signup(request):
     if request.method == 'POST':
