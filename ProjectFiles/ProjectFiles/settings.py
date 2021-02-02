@@ -75,6 +75,7 @@ WSGI_APPLICATION = 'ProjectFiles.wsgi.application'
 
 
 # Database
+85
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
@@ -104,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = 'cv.User'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/accounts/dashboard/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
