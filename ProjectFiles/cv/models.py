@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import Truncator
 from django.core.validators import MaxValueValidator, MinValueValidator
+from utils.useful_functions import get_accronym
+from django.contrib.staticfiles.storage import staticfiles_storage
 
 # Create your models here.
 
@@ -15,16 +17,23 @@ class Member(models.Model):
                              blank=True, on_delete=models.SET_NULL)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
-    image = models.ImageField(upload_to='images/', null=True, blank=True)
+    image = models.ImageField(upload_to='images/', default=staticfiles_storage.url(
+        'account/images/boxed-bg.png'), null=False, blank=False)
 
     def get_full_name(self):
         if self.user:
             return self.user.get_full_name() if self.user.get_full_name() else self.user.get_username()
+        return "{} {}".format(self.first_name, self.last_name)
 
-    def get_abbreviation(self):
+    def get_accronym(self):
+        return get_accronym(self.get_full_name())
+
+    def get_image(self):
+        default_image_url = staticfiles_storage.url(
+            'account/images/boxed-bg.png')
         if self.user:
-            self.user.get_full
-
+            return self.user.image if self.user.image else default_image_url
+        return self.image if self.image else default_image_url
 
 
 class Project(models.Model):
@@ -39,7 +48,8 @@ class Project(models.Model):
         ("SC", "Success"),
         ("CA", "Canceled"),
     ]
-    status = models.CharField(max_length=50, default="On Hold", choices=STATUS_CHOICES)
+    status = models.CharField(
+        max_length=50, default="On Hold", choices=STATUS_CHOICES)
 
     progress = models.PositiveSmallIntegerField(validators=[
         MinValueValidator(0),

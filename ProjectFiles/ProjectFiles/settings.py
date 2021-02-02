@@ -130,6 +130,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+
 # Email Configs
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
