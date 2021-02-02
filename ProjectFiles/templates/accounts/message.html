@@ -22,10 +22,13 @@
     <div class="main">
         <!-- Sing in  Form -->
         <section class="sign-in">
-            <div class="container">
-                <div align="center">
-                    <img align="center" src="{% static 'account/images/' %}{{ icon }}" style="max-width=130px !important;"/>
-                    <p align="center">{{ message }}</p>
+            <div class="container col-lg-6 col-md-8 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12" align="center">
+                        <img class="img-fluid" src="{% static 'account/images/' %}{{ icon }}"
+                            style="padding:25px;max-width=130px !important;max-width:150px;"/>
+                        <p style="font-size: 24px;" align="center">{{ message }}</p>
+                    </div>
                 </div>
             </div>
         </section>
