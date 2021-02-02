@@ -1,25 +1,30 @@
-from django.http import HttpResponse
-from django.core.mail import send_mail
+from cv.models import User, Project
 from django.conf import settings
-from cv.models import User
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_text
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.views import LoginView
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.views.generic import ListView
+
 from .forms import SignupForm
 from .tokens import account_activation_token
-from django.contrib.auth import login, authenticate
-from django.shortcuts import redirect, render
-from django.contrib.auth.views import LoginView
 
 
 class MyLoginView(LoginView):
     template_name = 'accounts/login.html'
 
+
 class DashboardView(LoginView):
     template_name = 'accounts/dashboard-base.html'
 
-class ProjectsView(LoginView):
+
+class ProjectsView(ListView):
+    model = Project
     template_name = 'accounts/dashboard-projects.html'
 
 
@@ -42,12 +47,13 @@ def signup(request):
             })
             to_email = form.cleaned_data.get('email')
             email_from = settings.EMAIL_HOST_USER
-            send_mail(mail_subject,message,email_from,[to_email],html_message=message)
+            send_mail(mail_subject, message, email_from,
+                      [to_email], html_message=message)
             # email = EmailMessage(
             #     mail_subject, message, to=[to_email],html_message=message
             # )
             # email.send()
-            return render(request, 'accounts/message.html', {'icon': 'mail.gif','message':'Please confirm your email address to complete the registration'})
+            return render(request, 'accounts/message.html', {'icon': 'mail.gif', 'message': 'Please confirm your email address to complete the registration'})
     else:
         form = SignupForm()
     return render(request, 'accounts/signup.html', {'form': form})
@@ -64,6 +70,6 @@ def activate(request, uidb64, token):
         user.save()
         # return redirect('home')
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
-        return render(request, 'accounts/message.html', {'icon': 'failure.svg','message':'Thank you for your email confirmation. Now you can login your account.'})
+        return render(request, 'accounts/message.html', {'icon': 'failure.svg', 'message': 'Thank you for your email confirmation. Now you can login your account.'})
     else:
-        return render(request, 'accounts/message.html', {'icon': 'failure.svg','message':'Activation link is invalid!'})
+        return render(request, 'accounts/message.html', {'icon': 'failure.svg', 'message': 'Activation link is invalid!'})

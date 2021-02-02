@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import Truncator
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
@@ -10,9 +11,20 @@ class User(AbstractUser):
 
 
 class Member(models.Model):
-    user = models.ForeignKey("cv.User", null=True, blank=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey("cv.User", null=True,
+                             blank=True, on_delete=models.SET_NULL)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
+
+    def get_full_name(self):
+        if self.user:
+            return self.user.get_full_name() if self.user.get_full_name() else self.user.get_username()
+
+    def get_abbreviation(self):
+        if self.user:
+            self.user.get_full
+
 
 
 class Project(models.Model):
@@ -21,6 +33,18 @@ class Project(models.Model):
     members = models.ManyToManyField(
         'cv.Member', through='MemberOfProject', related_name='member_projects')
     description = models.TextField(null=True)
+
+    STATUS_CHOICES = [
+        ("OH", "On Hold"),
+        ("SC", "Success"),
+        ("CA", "Canceled"),
+    ]
+    status = models.CharField(max_length=50, default="On Hold", choices=STATUS_CHOICES)
+
+    progress = models.PositiveSmallIntegerField(validators=[
+        MinValueValidator(0),
+        MaxValueValidator(100)
+    ])
     start_date = models.DateTimeField()
 
     def __str__(self):
