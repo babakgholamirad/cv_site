@@ -29,7 +29,7 @@ class ProjectAdmin(admin.ModelAdmin):
     inlines = (MembersInline,)
     list_display = [
         'title',
-        'owner',
+        'leader',
         'shrot_description',
         'start_date',
     ]

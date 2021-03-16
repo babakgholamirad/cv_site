@@ -1,4 +1,4 @@
-from cv.models import User, Project
+from cv.models import Project, User
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView
@@ -6,10 +6,11 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.views.generic import ListView
+from django.views.generic import DetailView, GenericViewError, ListView
 
 from .forms import SignupForm
 from .tokens import account_activation_token
@@ -26,6 +27,23 @@ class DashboardView(LoginView):
 class ProjectsView(ListView):
     model = Project
     template_name = 'accounts/dashboard-projects.html'
+
+
+class ProjectDetailView(DetailView):
+    model = Project
+    template_name = 'accounts/dashboard-project-detail.html'
+
+
+def handler404(request, *args, **argv):
+    response = render(request, '404.html', {})
+    response.status_code = 404
+    return response
+
+
+def handler500(request, *args, **argv):
+    response = render(request, '500.html', {})
+    response.status_code = 500
+    return response
 
 
 def signup(request):
@@ -69,6 +87,6 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         # return redirect('home')
-        return render(request, 'accounts/message.html', {'icon': 'failure.svg','message':'Thank you for your email confirmation. Now you can login your account.'})
+        return render(request, 'accounts/message.html', {'icon': 'failure.svg', 'message': 'Thank you for your email confirmation. Now you can login your account.'})
     else:
-        return render(request, 'accounts/message.html', {'icon': 'checked.svg','message':'Activation link is invalid!'})
+        return render(request, 'accounts/message.html', {'icon': 'checked.svg', 'message': 'Activation link is invalid!'})

@@ -38,7 +38,7 @@ class Member(models.Model):
 
 class Project(models.Model):
     title = models.CharField(max_length=200, blank=True)
-    owner = models.ForeignKey('cv.User', on_delete=models.SET_NULL, null=True)
+    leader = models.ForeignKey('cv.User', on_delete=models.SET_NULL, null=True)
     members = models.ManyToManyField(
         'cv.Member', through='MemberOfProject', related_name='member_projects')
     description = models.TextField(null=True)

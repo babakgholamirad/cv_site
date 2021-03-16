@@ -2,12 +2,14 @@ from django.urls import path, re_path
 from .views import (MyLoginView,
                     DashboardView,
                     ProjectsView,
+                    ProjectDetailView,
                     signup,
                     activate)
 from django.conf.urls import url
 
 urlpatterns = [
     path('login/', MyLoginView.as_view(), name='login'),
+    path('dashboard/projects/<int:pk>', ProjectDetailView.as_view(), name='project-detail'),
     path('dashboard/projects/', ProjectsView.as_view(), name='projects'),
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
     path('signup/', signup, name='signup'),
