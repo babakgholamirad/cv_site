@@ -39,22 +39,27 @@ class Member(models.Model):
 class Project(models.Model):
     title = models.CharField(max_length=200, blank=True)
     leader = models.ForeignKey('cv.User', on_delete=models.SET_NULL, null=True)
+    client = models.CharField(max_length=200, blank=True)
     members = models.ManyToManyField(
         'cv.Member', through='MemberOfProject', related_name='member_projects')
     description = models.TextField(null=True)
 
     STATUS_CHOICES = [
         ("OH", "On Hold"),
+        ("OG", "On Going"),
         ("SC", "Success"),
         ("CA", "Canceled"),
     ]
     status = models.CharField(
         max_length=50, default="On Hold", choices=STATUS_CHOICES)
 
-    progress = models.PositiveSmallIntegerField(validators=[
-        MinValueValidator(0),
-        MaxValueValidator(100)
-    ])
+    progress = models.PositiveSmallIntegerField(
+        default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(100)
+        ]
+    )
     start_date = models.DateTimeField()
 
     def __str__(self):

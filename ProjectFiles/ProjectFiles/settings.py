@@ -75,7 +75,6 @@ WSGI_APPLICATION = 'ProjectFiles.wsgi.application'
 
 
 # Database
-85
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {

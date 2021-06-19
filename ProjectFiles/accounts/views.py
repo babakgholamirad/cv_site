@@ -1,4 +1,4 @@
-from cv.models import Project, User
+from cv.models import User
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView
@@ -10,7 +10,6 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.views.generic import DetailView, GenericViewError, ListView
 
 from .forms import SignupForm
 from .tokens import account_activation_token
@@ -18,20 +17,6 @@ from .tokens import account_activation_token
 
 class MyLoginView(LoginView):
     template_name = 'accounts/login.html'
-
-
-class DashboardView(LoginView):
-    template_name = 'accounts/dashboard-base.html'
-
-
-class ProjectsView(ListView):
-    model = Project
-    template_name = 'accounts/dashboard-projects.html'
-
-
-class ProjectDetailView(DetailView):
-    model = Project
-    template_name = 'accounts/dashboard-project-detail.html'
 
 
 def handler404(request, *args, **argv):

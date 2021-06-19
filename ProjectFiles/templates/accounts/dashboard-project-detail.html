@@ -1,216 +1,325 @@
-{% extends 'accounts/dashboard-base.html' %}
-{% load static %}
-
+{% extends 'accounts/dashboard-base.html' %} {% load static %}
+<!-- Content Wrapper. Contains page content -->
 {% block more_css %}
-{% comment %}
-<!-- my custom css -->
-<link rel="stylesheet" href="{% static 'account/css/adminlte_custom.css' %}"> {% endcomment %}
-{% endblock more_css %}
-
-{% block content-wrapper %}
+<link rel="stylesheet" href="{% static 'cv/css/custom.css' %}" />
+{% endblock more_css %} {% block content-wrapper %}
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Project Detail</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Project Detail</li>
-                    </ol>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </section>
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Project Details</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Project Detail</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
 
-    <!-- Main content -->
-    <section class="content">
+  <!-- Main content -->
+  <section class="content">
+    <!-- Default box -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">{{object.title}}</h3>
 
-        <!-- Default box -->
+        <div class="card-tools">
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="collapse"
+            title="Collapse"
+          >
+            <i class="fas fa-minus"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="remove"
+            title="Remove"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-6 mt-2">
         <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Projects Detail</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
+          <div class="card-header">
+            <h3 class="card-title">Status Bar</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="progress mb-3">
+              {% if object.status == "OH" %}
+              <span class="sr-only"
+                >{{ object.progress }}% Completed (On Hold)</span
+              >
+              <div
+                class="progress-bar bg-warning"
+                role="progressbar"
+                aria-valuenow="{{ object.progress }}"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: {{ object.progress }}%"
+              ></div>
+              {% elif object.status == "OG" %}
+              <span class="sr-only"
+                >{{ object.progress }}% Completed (On Going)</span
+              >
+              <div
+                class="progress-bar bg-info"
+                role="progressbar"
+                aria-valuenow="{{ object.progress }}"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: {{ object.progress }}%"
+              ></div>
+              {% elif object.status == "SC" %}
+              <span class="sr-only"
+                >{{ object.progress }}% Completed (success)</span
+              >
+              <div
+                class="progress-bar bg-success"
+                role="progressbar"
+                aria-valuenow="{{ object.progress }}"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: {{ object.progress }}%"
+              ></div>
+              {% elif object.status == "CA" %}
+              <span class="sr-only"
+                >{{ object.progress }}% Completed (Canceled)</span
+              >
+              <div
+                class="progress-bar bg-danger"
+                role="progressbar"
+                aria-valuenow="{{ object.progress }}"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: {{ object.progress }}%"
+              ></div>
+              {% endif %}
             </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
-                        <div class="row">
-                            <div class="col-12 col-sm-4">
-                                <div class="info-box bg-light">
-                                    <div class="info-box-content">
-                                        <span class="info-box-text text-center text-muted">Estimated budget</span>
-                                        <span class="info-box-number text-center text-muted mb-0">2300</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-4">
-                                <div class="info-box bg-light">
-                                    <div class="info-box-content">
-                                        <span class="info-box-text text-center text-muted">Total amount spent</span>
-                                        <span class="info-box-number text-center text-muted mb-0">2000</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-4">
-                                <div class="info-box bg-light">
-                                    <div class="info-box-content">
-                                        <span class="info-box-text text-center text-muted">Estimated project
-                                            duration</span>
-                                        <span class="info-box-number text-center text-muted mb-0">20</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <h4>Recent Activity</h4>
-                                <div class="post">
-                                    <div class="user-block">
-                                        <img class="img-circle img-bordered-sm"
-                                            src="{% static 'account/images/user1-128x128.jpg' %}" alt="user image">
-                                        <span class="username">
-                                            <a href="#">Jonathan Burke Jr.</a>
-                                        </span>
-                                        <span class="description">Shared publicly - 7:45 PM today</span>
-                                    </div>
-                                    <!-- /.user-block -->
-                                    <p>
-                                        Lorem ipsum represents a long-held tradition for designers,
-                                        typographers and the like. Some people hate it and argue for
-                                        its demise, but others ignore.
-                                    </p>
-
-                                    <p>
-                                        <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo
-                                            File 1 v2</a>
-                                    </p>
-                                </div>
-
-                                <div class="post clearfix">
-                                    <div class="user-block">
-                                        <img class="img-circle img-bordered-sm"
-                                            src="{% static 'account/images/user7-128x128.jpg' %}" alt="User Image">
-                                        <span class="username">
-                                            <a href="#">Sarah Ross</a>
-                                        </span>
-                                        <span class="description">Sent you a message - 3 days ago</span>
-                                    </div>
-                                    <!-- /.user-block -->
-                                    <p>
-                                        Lorem ipsum represents a long-held tradition for designers,
-                                        typographers and the like. Some people hate it and argue for
-                                        its demise, but others ignore.
-                                    </p>
-                                    <p>
-                                        <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo
-                                            File 2</a>
-                                    </p>
-                                </div>
-
-                                <div class="post">
-                                    <div class="user-block">
-                                        <img class="img-circle img-bordered-sm"
-                                            src="{% static 'account/images/user1-128x128.jpg' %}" alt="user image">
-                                        <span class="username">
-                                            <a href="#">Jonathan Burke Jr.</a>
-                                        </span>
-                                        <span class="description">Shared publicly - 5 days ago</span>
-                                    </div>
-                                    <!-- /.user-block -->
-                                    <p>
-                                        Lorem ipsum represents a long-held tradition for designers,
-                                        typographers and the like. Some people hate it and argue for
-                                        its demise, but others ignore.
-                                    </p>
-
-                                    <p>
-                                        <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo
-                                            File 1 v1</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-                        <h3 class="text-primary"><i class="fas fa-paint-brush"></i> {{object.title}}</h3>
-                        <p class="text-muted">{{object.description}}</p>
-                        <br>
-                        <div class="text-muted">
-                            <p class="text-sm">Client Company
-                                <b class="d-block">Deveint Inc</b>
-                            </p>
-                            <p class="text-sm">Project Leader
-                                <b class="d-block">Tony Chicken</b>
-                            </p>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- =========================================================== -->
-                <h5 class="mb-2">Members</h5>
-                <div class="row">
-                    {% for member in object.memberofproject_set.all %}
-                        <div class="col-md-4">
-                            <!-- Widget: user widget style 2 -->
-                            <div class="card card-widget widget-user-2 shadow-sm">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <div class="widget-user-header bg-warning">
-                                    <div class="widget-user-image">
-                                        <img class="img-circle elevation-2" src="{{ member.member.image.url }}"
-                                            alt="User Avatar">
-                                    </div>
-                                    <!-- /.widget-user-image -->
-                                    <h3 class="widget-user-username">{{ member.member.get_full_name }}</h3>
-                                    <h5 class="widget-user-desc">{{ member.role_in_project }}</h5>
-                                </div>
-                                <div class="card-footer p-0">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                Projects <span class="float-right badge bg-primary">{{member.member.member_projects.count}}</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                Tasks <span class="float-right badge bg-info">5</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                Completed Projects <span class="float-right badge bg-success">12</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- /.widget-user -->
-                        </div>
-                    <!-- /.col -->
-                    {% endfor %}
-
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.card-body -->
+            <!-- /.card-progressbar -->
+          </div>
+          <!-- /.card-body -->
         </div>
         <!-- /.card -->
+      </div>
+      <!-- /.col (right) -->
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+            <div class="row">
+              <div class="col-12 col-sm-4">
+                <div class="info-box bg-light">
+                  <div class="info-box-content">
+                    <span class="info-box-text text-center text-muted"
+                      >Estimated budget</span
+                    >
+                    <span class="info-box-number text-center text-muted mb-0"
+                      >2300</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-4">
+                <div class="info-box bg-light">
+                  <div class="info-box-content">
+                    <span class="info-box-text text-center text-muted"
+                      >Total amount spent</span
+                    >
+                    <span class="info-box-number text-center text-muted mb-0"
+                      >2000</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-4">
+                <div class="info-box bg-light">
+                  <div class="info-box-content">
+                    <span class="info-box-text text-center text-muted"
+                      >Estimated project duration</span
+                    >
+                    <span class="info-box-number text-center text-muted mb-0"
+                      >20</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <h4>Recent Activity</h4>
+                <div class="post">
+                  <div class="user-block">
+                    <img
+                      class="img-circle img-bordered-sm"
+                      src="{% static 'account/images/user1-128x128.jpg' %}"
+                      alt="user image"
+                    />
+                    <span class="username">
+                      <a href="#">Jonathan Burke Jr.</a>
+                    </span>
+                    <span class="description"
+                      >Shared publicly - 7:45 PM today</span
+                    >
+                  </div>
+                  <!-- /.user-block -->
+                  <p>
+                    Lorem ipsum represents a long-held tradition for designers,
+                    typographers and the like. Some people hate it and argue for
+                    its demise, but others ignore.
+                  </p>
 
-    </section>
-    <!-- /.content -->
+                  <p>
+                    <a href="#" class="link-black text-sm"
+                      ><i class="fas fa-link mr-1"></i> Demo File 1 v2</a
+                    >
+                  </p>
+                </div>
+
+                <div class="post clearfix">
+                  <div class="user-block">
+                    <img
+                      class="img-circle img-bordered-sm"
+                      src="{% static 'account/images/user7-128x128.jpg' %}"
+                      alt="User Image"
+                    />
+                    <span class="username">
+                      <a href="#">Sarah Ross</a>
+                    </span>
+                    <span class="description"
+                      >Sent you a message - 3 days ago</span
+                    >
+                  </div>
+                  <!-- /.user-block -->
+                  <p>
+                    Lorem ipsum represents a long-held tradition for designers,
+                    typographers and the like. Some people hate it and argue for
+                    its demise, but others ignore.
+                  </p>
+                  <p>
+                    <a href="#" class="link-black text-sm"
+                      ><i class="fas fa-link mr-1"></i> Demo File 2</a
+                    >
+                  </p>
+                </div>
+
+                <div class="post">
+                  <div class="user-block">
+                    <img
+                      class="img-circle img-bordered-sm"
+                      src="{% static 'account/images/user1-128x128.jpg' %}"
+                      alt="user image"
+                    />
+                    <span class="username">
+                      <a href="#">Jonathan Burke Jr.</a>
+                    </span>
+                    <span class="description"
+                      >Shared publicly - 5 days ago</span
+                    >
+                  </div>
+                  <!-- /.user-block -->
+                  <p>
+                    Lorem ipsum represents a long-held tradition for designers,
+                    typographers and the like. Some people hate it and argue for
+                    its demise, but others ignore.
+                  </p>
+
+                  <p>
+                    <a href="#" class="link-black text-sm"
+                      ><i class="fas fa-link mr-1"></i> Demo File 1 v1</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
+            <h3 class="text-primary">
+              <i class="fas fa-paint-brush"></i> {{object.title}}
+            </h3>
+            <p class="text-muted">{{object.description}}</p>
+            <br />
+            <div class="text-muted">
+              <p class="text-sm">
+                Client Company
+                <b class="d-block">{{object.client}}</b>
+              </p>
+              <p class="text-sm">
+                Project Leader
+                <b class="d-block">{{object.leader}}</b>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- =========================================================== -->
+        <h5 class="mb-2">Members</h5>
+        <div class="row">
+          {% for member in object.memberofproject_set.all %}
+          <div class="col-md-4">
+            <!-- Widget: user widget style 2 -->
+            <div class="card card-widget widget-user-2 shadow-sm">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-warning">
+                <div class="widget-user-image">
+                  <img
+                    class="img-circle elevation-2"
+                    src="{{ member.member.image.url }}"
+                    alt="User Avatar"
+                  />
+                </div>
+                <!-- /.widget-user-image -->
+                <h3 class="widget-user-username">
+                  {{ member.member.get_full_name }}
+                </h3>
+                <h5 class="widget-user-desc">{{ member.role_in_project }}</h5>
+              </div>
+              <div class="card-footer p-0">
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      Projects
+                      <span class="float-right badge bg-primary"
+                        >{{member.member.member_projects.count}}</span
+                      >
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      Tasks <span class="float-right badge bg-info">5</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      Completed Projects
+                      <span class="float-right badge bg-success">12</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- /.widget-user -->
+          </div>
+          <!-- /.col -->
+          {% endfor %}
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </section>
+  <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 {% endblock content-wrapper %}
