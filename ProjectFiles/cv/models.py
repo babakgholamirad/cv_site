@@ -36,19 +36,37 @@ class Member(models.Model):
         return self.image if self.image else default_image_url
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=50,unique=True, null=False, blank=False)
+
+
+class Task(models.Model):
+    title = models.CharField(max_length=300, null=False, blank=False)
+    project = models.ForeignKey("cv.Project", on_delete=models.CASCADE, null=True)
+    assigner = models.ForeignKey(
+        "cv.Member", on_delete=models.SET_NULL, null=True)
+    members = models.ManyToManyField("cv.MemberOfProject")
+    tags = models.ManyToManyField("cv.Tag")
+    description = models.TextField()
+    date_created = models.DateTimeField()
+    deadline = models.DateTimeField(null=True)
+
+
 class Project(models.Model):
     title = models.CharField(max_length=200, blank=True)
     leader = models.ForeignKey('cv.User', on_delete=models.SET_NULL, null=True)
     client = models.CharField(max_length=200, blank=True)
+
     members = models.ManyToManyField(
         'cv.Member', through='MemberOfProject', related_name='member_projects')
+
     description = models.TextField(null=True)
 
     STATUS_CHOICES = [
-        ("OH", "On Hold"),
-        ("OG", "On Going"),
-        ("SC", "Success"),
-        ("CA", "Canceled"),
+        ("On Hold", "On Hold"),
+        ("On Going", "On Going"),
+        ("Success", "Success"),
+        ("Canceled", "Canceled"),
     ]
     status = models.CharField(
         max_length=50, default="On Hold", choices=STATUS_CHOICES)
@@ -75,3 +93,6 @@ class MemberOfProject(models.Model):
     role_in_project = models.CharField(max_length=150, null=False, blank=False)
     date_joined = models.DateTimeField()
     date_left = models.DateTimeField()
+    
+    def __str__(self):
+        return(self.member.)
