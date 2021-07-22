@@ -1,6 +1,6 @@
 from cv.models import Project
 from django.shortcuts import render
-from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic import DetailView, ListView, TemplateView, CreateView
 # Create your views here.
 
 
@@ -26,3 +26,9 @@ class ProjectsView(ListView):
 class ProjectDetailView(DetailView):
     model = Project
     template_name = 'accounts/dashboard-project-detail.html'
+
+
+class ProjectCreateView(CreateView):
+    model = Project
+    template_name = 'accounts/dashboard-project-add.html'
+    fields = []

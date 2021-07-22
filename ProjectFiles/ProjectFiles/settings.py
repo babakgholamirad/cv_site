@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'nested_inline',
+    'django.contrib.humanize',
     'cv.apps.CvConfig'
 ]
 

@@ -2,169 +2,170 @@
 {% load static %}
 
 {% block more_css %}
-{% comment %}
+
 <!-- my custom css -->
-<link rel="stylesheet" href="{% static 'account/css/adminlte_custom.css' %}"> {% endcomment %}
+<link rel="stylesheet" href="{% static 'cv/css/custom.css' %}">
 {% endblock more_css %}
 
 {% block content-wrapper %}
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Projects</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Projects</li>
-                    </ol>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </section>
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1>Projects</h1>
+				</div>
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#">Home</a></li>
+						<li class="breadcrumb-item active">Projects</li>
+					</ol>
+				</div>
+			</div>
+		</div><!-- /.container-fluid -->
+	</section>
 
-    <!-- Main content -->
-    <section class="content">
+	<!-- Main content -->
+	<section class="content">
 
-        <!-- Default box -->
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Projects</h3>
+		<!-- Default box -->
+		<div class="card">
+			<div class="card-header">
+				<h3 class="card-title">Projects</h3>
 
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="card-body p-0">
-                <table class="table table-striped projects">
+				<div class="card-tools">
+					<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+						<i class="fas fa-minus"></i>
+					</button>
+					<button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+						<i class="fas fa-times"></i>
+					</button>
+				</div>
+			</div>
+			<div class="card-body p-0">
+				<table class="table table-striped projects">
 
-                    <!-- Project Table Heads -->
-                    <thead>
-                        <tr>
-                            <th style="width: 1%">
-                                ID
-                            </th>
-                            <th style="width: 20%">
-                                Project Name
-                            </th>
-                            <th style="width: 30%">
-                                Team Members
-                            </th>
-                            <th>
-                                Project Progress
-                            </th>
-                            <th style="width: 8%" class="text-center">
-                                Status
-                            </th>
-                            <th style="width: 20%">
-                            </th>
-                        </tr>
-                    </thead>
+					<!-- Project Table Heads -->
+					<thead>
+						<tr>
+							<th style="width: 1%">
+								ID
+							</th>
+							<th style="width: 20%">
+								Project Name
+							</th>
+							<th style="width: 30%">
+								Team Members
+							</th>
+							<th>
+								Project Progress
+							</th>
+							<th style="width: 8%" class="text-center">
+								Status
+							</th>
+							<th style="width: 20%">
+							</th>
+						</tr>
+					</thead>
 
-                    <!-- Project Table Body -->
-                    <tbody>
-                        {% for project in object_list %}
-                        <tr>
-                            <td>
-                                {{project.id}}
-                            </td>
-                            <td>
+					<!-- Project Table Body -->
+					<tbody>
+						{% for project in object_list %}
+						<tr>
+							<td>
+								{{project.id}}
+							</td>
+							<td>
 
-                                <!-- Project Title -->
-                                <a>
-                                    {{ project.title }}
-                                </a>
-                                <br />
+								<!-- Project Title -->
+								<a>
+									{{ project.title }}
+								</a>
+								<br />
 
-                                <!-- Project Create Date -->
-                                <small>
-                                    {{ project.start_date }}
-                                </small>
-                            </td>
+								<!-- Project Create Date -->
+								<small>
+									{{ project.start_date }}
+								</small>
+							</td>
 
-                            <!-- Project Team Member -->
-                            <td>
-                                <ul class="list-inline">
-                                    {% for member in project.members.all %}
-                                    <li class="list-inline-item" style="position:relative;"
-                                        data-toggle="tooltip" data-placement="bottom" title="{{ member.get_full_name }}">
-                                        <img alt="Avatar" class="table-avatar" src="{{ member.image.url }}">
-                                            {% if 'boxed-bg.png' in member.image.url %}
-                                                <h4 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color:#a82f2f">
-                                                    {{member.get_accronym}}</h4>
-                                            {% endif %}
-                                            
-                                        </img>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                            </td>
+							<!-- Project Team Member -->
+							<td>
+								<ul class="list-inline">
+									{% for member in project.members.all %}
+									<li class="list-inline-item" style="position:relative;" data-toggle="tooltip"
+										data-placement="bottom" title="{{ member.get_full_name }}">
+										<img alt="Avatar" class="table-avatar" src="{{ member.image.url }}">
+										{% if 'boxed-bg.png' in member.image.url %}
+										<h4
+											style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color:#a82f2f">
+											{{member.get_accronym}}</h4>
+										{% endif %}
 
-                            <!-- Project Progress -->
-                            <td class="project_progress">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-green" role="progressbar"
-                                        aria-valuenow="{{ project.progress }}" aria-valuemin="0" aria-valuemax="100"
-                                        style="width: {{ project.progress }}%">
-                                    </div>
-                                </div>
-                                <small>
-                                    {{ project.progress }}% Complete
-                                </small>
-                            </td>
+										</img>
+									</li>
+									{% endfor %}
+								</ul>
+							</td>
 
-                            <!-- Project State -->
-                            <td class="project-state">
-                                {% if project.status == "OH" %}
-                                <span class="badge badge-warning">
-                                    {% elif project.status == "SC" %}
-                                    <span class="badge badge-success">
-                                        {% elif project.status == "CA" %}
-                                        <span class="badge badge-danger">
-                                            {% endif %}
-                                            {{ project.get_status_display }}
-                                        </span>
-                            </td>
+							<!-- Project Progress -->
+							<td class="project_progress">
+								<div class="progress progress-sm">
+									<div class="progress-bar bg-green" role="progressbar"
+										aria-valuenow="{{ project.progress }}" aria-valuemin="0" aria-valuemax="100"
+										style="width: {{ project.progress }}%">
+									</div>
+								</div>
+								<small>
+									{{ project.progress }}% Complete
+								</small>
+							</td>
 
-                            <!-- Project Actions -->
-                            <td class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" href="{% url 'project-detail' project.pk %}">
-                                    <i class="fas fa-folder">
-                                    </i>
-                                    View
-                                </a>
-                                <a class="btn btn-info btn-sm" href="#">
-                                    <i class="fas fa-pencil-alt">
-                                    </i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger btn-sm" href="#">
-                                    <i class="fas fa-trash">
-                                    </i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
+							<!-- Project State -->
+							<td class="project-state">
+								{% if project.status == "OH" %}
+								<span class="badge badge-warning">
+									{% elif project.status == "SC" %}
+									<span class="badge badge-success">
+										{% elif project.status == "CA" %}
+										<span class="badge badge-danger">
+											{% endif %}
+											{{ project.get_status_display }}
+										</span>
+							</td>
 
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
+							<!-- Project Actions -->
+							<td class="project-actions text-right">
+								<a class="btn btn-primary btn-sm" href="{% url 'project-detail' project.pk %}">
+									<i class="fas fa-folder">
+									</i>
+									View
+								</a>
+								<a class="btn btn-info btn-sm" href="#">
+									<i class="fas fa-pencil-alt">
+									</i>
+									Edit
+								</a>
+								<a class="btn btn-danger btn-sm" href="#">
+									<i class="fas fa-trash">
+									</i>
+									Delete
+								</a>
+							</td>
+						</tr>
+						{% endfor %}
 
-    </section>
-    <!-- /.content -->
+					</tbody>
+				</table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+
+	</section>
+	<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 {% endblock content-wrapper %}

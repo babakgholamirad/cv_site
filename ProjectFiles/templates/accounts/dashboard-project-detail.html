@@ -1,4 +1,4 @@
-{% extends 'accounts/dashboard-base.html' %} {% load static %}
+{% extends 'accounts/dashboard-base.html' %} {% load static %}{% load humanize %}
 <!-- Content Wrapper. Contains page content -->
 {% block more_css %}
 <link rel="stylesheet" href="{% static 'cv/css/custom.css' %}" />
@@ -122,71 +122,42 @@
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<h4>Recent Activity</h4>
-							<div class="post">
-								<div class="user-block">
-									<img class="img-circle img-bordered-sm"
-										src="{% static 'account/images/user1-128x128.jpg' %}" alt="user image" />
-									<span class="username">
-										<a href="#">Jonathan Burke Jr.</a>
-									</span>
-									<span class="description">Shared publicly - 7:45 PM today</span>
-								</div>
-								<!-- /.user-block -->
-								<p>
-									Lorem ipsum represents a long-held tradition for designers,
-									typographers and the like. Some people hate it and argue for
-									its demise, but others ignore.
-								</p>
+							<h4>Recent Tasks</h4>
 
-								<p>
-									<a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo
-										File 1 v2</a>
-								</p>
-							</div>
-
+							{% for task in object.tasks.all %}
 							<div class="post clearfix">
 								<div class="user-block">
-									<img class="img-circle img-bordered-sm"
-										src="{% static 'account/images/user7-128x128.jpg' %}" alt="User Image" />
 									<span class="username">
-										<a href="#">Sarah Ross</a>
+										{{ task.title }}
 									</span>
-									<span class="description">Sent you a message - 3 days ago</span>
+									<span class="description">task made by <a href="#">{{ task.assigner }}</a> -
+										{{ task.date_created|naturaltime }}</span>
+									{% for member in task.members.all %}
+
+									{% if 'boxed-bg.png' in member.member.image.url %}
+
+									<img class="img-circle img-bordered-sm mr-2"
+										src="{% static 'account/images/user.svg' %}" data-toggle="tooltip"
+										title="{{ member.member.get_full_name }}" />
+									{% else %}
+									<img class="img-circle img-bordered-sm mr-2" src="{{ member.member.image.url }}"
+										data-toggle="tooltip" title="{{ member.member.get_full_name }}" />
+									{% endif %}
+
+									{% endfor %}
 								</div>
 								<!-- /.user-block -->
 								<p>
-									Lorem ipsum represents a long-held tradition for designers,
-									typographers and the like. Some people hate it and argue for
-									its demise, but others ignore.
+									{{task.description}}
 								</p>
-								<p>
-									<a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo
-										File 2</a>
-								</p>
+								<!-- <p>
+										<a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo
+											File 2</a>
+									</p> -->
 							</div>
+							{% endfor %}
 
-							<div class="post">
-								<div class="user-block">
-									<img class="img-circle img-bordered-sm"
-										src="{% static 'account/images/user1-128x128.jpg' %}" alt="user image" />
-									<span class="username">
-										<a href="#">Jonathan Burke Jr.</a>
-									</span>
-									<span class="description">Shared publicly - 5 days ago</span>
-								</div>
-								<!-- /.user-block -->
-								<p>
-									Lorem ipsum represents a long-held tradition for designers,
-									typographers and the like. Some people hate it and argue for
-									its demise, but others ignore.
-								</p>
 
-								<p>
-									<a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo
-										File 1 v1</a>
-								</p>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -212,21 +183,21 @@
 			<!-- =========================================================== -->
 			<h5 class="mb-2">Members</h5>
 			<div class="row">
-				{% for member in object.memberofproject_set.all %}
+				{% for member_of_project in object.memberofproject_set.all %}
 				<div class="col-md-4">
 					<!-- Widget: user widget style 2 -->
 					<div class="card card-widget widget-user-2 shadow-sm">
 						<!-- Add the bg color to the header using any of the bg-* classes -->
 						<div class="widget-user-header bg-warning">
 							<div class="widget-user-image">
-								<img class="img-circle elevation-2" src="{{ member.member.image.url }}"
+								<img class="img-circle elevation-2" src="{{ member_of_project.member.image.url }}"
 									alt="User Avatar" />
 							</div>
 							<!-- /.widget-user-image -->
 							<h3 class="widget-user-username">
-								{{ member.member.get_full_name }}
+								{{ member_of_project.member.get_full_name }}
 							</h3>
-							<h5 class="widget-user-desc">{{ member.role_in_project }}</h5>
+							<h5 class="widget-user-desc">{{ member_of_project.role_in_project }}</h5>
 						</div>
 						<div class="card-footer p-0">
 							<ul class="nav flex-column">
@@ -234,18 +205,13 @@
 									<a href="#" class="nav-link">
 										Projects
 										<span
-											class="float-right badge bg-primary">{{member.member.member_projects.count}}</span>
+											class="float-right badge bg-primary">{{member_of_project.member.member_projects.count}}</span>
 									</a>
 								</li>
 								<li class="nav-item">
 									<a href="#" class="nav-link">
-										Tasks <span class="float-right badge bg-info">5</span>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link">
-										Completed Projects
-										<span class="float-right badge bg-success">12</span>
+										Tasks <span
+											class="float-right badge bg-info">{{member_of_project.tasks.count}}</span>
 									</a>
 								</li>
 							</ul>

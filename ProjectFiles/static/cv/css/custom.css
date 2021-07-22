@@ -1,7 +1,37 @@
-.progress{
+.progress {
     border-radius: 10px;
 }
-.progress-bar{
+
+.progress-bar {
     border-radius: 10px;
     margin-left: -10px;
+}
+
+.user-block .comment,
+.user-block .description,
+.user-block .username {
+    margin-left: 10px !important;
+}
+
+.post .user-block {
+    margin-bottom: 5px !important;
+}
+
+.user-block img {
+    margin-top: 5px !important;
+    height: 50px !important;
+    width: 50px !important;
+}
+
+.widget-user-2 .widget-user-image>img {
+    height: 65px !important;
+}
+
+.projects .table-avatar img,
+.projects img.table-avatar {
+    height: 2.5rem !important;
+}
+
+.btn {
+    margin-top: 3px !important;
 }

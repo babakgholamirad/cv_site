@@ -43,7 +43,8 @@ class TaskAdmin(admin.ModelAdmin):
     list_display = [
         "title",
         "assigner",
-        "description",
+        "short_description",
+        "finished",
         "date_created",
         "deadline"
     ]
@@ -55,6 +56,6 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = [
         'title',
         'leader',
-        'shrot_description',
+        'short_description',
         'start_date',
     ]

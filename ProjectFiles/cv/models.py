@@ -35,21 +35,37 @@ class Member(models.Model):
             return self.user.image if self.user.image else default_image_url
         return self.image if self.image else default_image_url
 
+    def __str__(self):
+        return self.get_full_name()
+
 
 class Tag(models.Model):
-    name = models.CharField(max_length=50,unique=True, null=False, blank=False)
+    name = models.CharField(max_length=50, unique=True,
+                            null=False, blank=False)
+
+    def __str__(self):
+        return self.name
 
 
 class Task(models.Model):
     title = models.CharField(max_length=300, null=False, blank=False)
-    project = models.ForeignKey("cv.Project", on_delete=models.CASCADE, null=True)
+    project = models.ForeignKey(
+        "cv.Project", on_delete=models.CASCADE, null=True)
     assigner = models.ForeignKey(
         "cv.Member", on_delete=models.SET_NULL, null=True)
-    members = models.ManyToManyField("cv.MemberOfProject")
+    members = models.ManyToManyField(
+        "cv.MemberOfProject", related_name='tasks')
     tags = models.ManyToManyField("cv.Tag")
     description = models.TextField()
     date_created = models.DateTimeField()
-    deadline = models.DateTimeField(null=True)
+    deadline = models.DateTimeField(null=True, blank=True)
+    finished = models.BooleanField(default=False, null=False, blank=False)
+
+    def short_description(self):
+        return Truncator(self.description).words(20)
+
+    def __str__(self):
+        return self.title
 
 
 class Project(models.Model):
@@ -83,8 +99,11 @@ class Project(models.Model):
     def __str__(self):
         return(self.title)
 
-    def shrot_description(self):
+    def short_description(self):
         return Truncator(self.description).words(20)
+
+    def tasks(self):
+        return Task.objects.filter(members__project__id=self.id)
 
 
 class MemberOfProject(models.Model):
@@ -92,7 +111,9 @@ class MemberOfProject(models.Model):
     project = models.ForeignKey('cv.Project', on_delete=models.CASCADE)
     role_in_project = models.CharField(max_length=150, null=False, blank=False)
     date_joined = models.DateTimeField()
-    date_left = models.DateTimeField()
-    
+    date_left = models.DateTimeField(null=True, blank=True)
+
     def __str__(self):
-        return(self.member.)
+        return("{} ({}) of {}".format(self.member.get_full_name(),
+                                      self.role_in_project,
+                                      self.project))
