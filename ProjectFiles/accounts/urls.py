@@ -2,7 +2,6 @@ from django.urls import path, re_path
 from .views import (MyLoginView,
                     signup,
                     activate)
-from django.conf.urls import url
 
 urlpatterns = [
     path('login/', MyLoginView.as_view(), name='login'),
