@@ -8,7 +8,7 @@ from .views import (
     test)
 
 urlpatterns = [
-    path('', home, name='home'),
+    path('', DashboardView.as_view(), name='home'),
     path('test/', test, name='test'),
     path('dashboard/projects/add',
          ProjectCreateView.as_view(), name='project-detail-add'),
