@@ -51,4 +51,7 @@ env.bak/
 venv.bak/
 
 .vscode/
+
+# Statics and Images
 images/
+static/

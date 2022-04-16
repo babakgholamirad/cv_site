@@ -31,9 +31,9 @@ class Member(models.Model):
     def get_image(self):
         default_image_url = staticfiles_storage.url(
             'account/images/boxed-bg.png')
-        if self.user:
-            return self.user.image if self.user.image else default_image_url
-        return self.image if self.image else default_image_url
+        if self.user and self.user.image:
+            return self.user.image
+        return default_image_url
 
     def __str__(self):
         return self.get_full_name()
@@ -41,7 +41,7 @@ class Member(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True,
-                            null=False, blank=False)
+                        null=False, blank=False)
 
     def __str__(self):
         return self.name
