@@ -97,8 +97,8 @@
 									{% for member in project.members.all %}
 									<li class="list-inline-item" style="position:relative;" data-toggle="tooltip"
 										data-placement="bottom" title="{{ member.get_full_name }}">
-										<img alt="Avatar" class="table-avatar" src="{{ member.image.url }}">
-										{% if 'boxed-bg.png' in member.image.url %}
+										<img alt="Avatar" class="table-avatar img-circle img-bordered-sm mr-2" src="{{ member.get_image }}">
+										{% if 'boxed-bg.png' in member.get_image %}
 										<h4
 											style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color:#a82f2f">
 											{{member.get_accronym}}</h4>

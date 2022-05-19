@@ -1,234 +1,227 @@
 {% extends 'accounts/dashboard-base.html' %} {% load static %}{% load humanize %}
-<!-- Content Wrapper. Contains page content -->
+{% comment %} Content Wrapper. Contains page content {% endcomment %}
 {% block more_css %}
 <link rel="stylesheet" href="{% static 'cv/css/custom.css' %}" />
 {% endblock more_css %} {% block content-wrapper %}
-<!-- Content Wrapper. Contains page content -->
+{% comment %} Content Wrapper. Contains page content {% endcomment %}
 <div class="content-wrapper">
-	<!-- Content Header (Page header) -->
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1>Project Details</h1>
-				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="#">Home</a></li>
-						<li class="breadcrumb-item active">Project Detail</li>
-					</ol>
-				</div>
-			</div>
-		</div>
-		<!-- /.container-fluid -->
-	</section>
+    {% comment %} Content Header (Page header) {% endcomment %}
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Project Details</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Project Detail</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        {% comment %} /.container-fluid {% endcomment %}
+    </section>
 
-	<!-- Main content -->
-	<section class="content">
-		<!-- Default box -->
-		<div class="card">
-			<div class="card-header">
-				<h3 class="card-title">{{object.title}}</h3>
+    {% comment %} Main content {% endcomment %}
+    <section class="content">
+        {% comment %} Default box {% endcomment %}
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{{object.title}}</h3>
 
-				<div class="card-tools">
-					<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-						<i class="fas fa-minus"></i>
-					</button>
-					<button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-						<i class="fas fa-times"></i>
-					</button>
-				</div>
-			</div>
-			<div class="col-md-6 mt-2">
-				<div class="card">
-					<div class="card-header">
-						<h3 class="card-title">Project Status</h3>
-					</div>
-					<!-- /.card-header -->
-					<div class="card-body">
-						<div class="row">
-							{% if object.status == "On Hold" %}
-							<span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (On Hold)</span>
-							<div class="progress mb-3 col-sm-8">
-								<div class="progress-bar bg-warning" role="progressbar"
-									aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
-									style="width: {{ object.progress }}%"></div>
-							</div>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6 mt-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Project Status</h3>
+                    </div>
+                    {% comment %} /.card-header {% endcomment %}
+                    <div class="card-body">
+                        <div class="row">
+                            {% if object.status == "On Hold" %}
+                            <span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (On Hold)</span>
+                            <div class="progress mb-3 col-sm-8">
+                                <div class="progress-bar bg-warning" role="progressbar"
+                                    aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: {{ object.progress }}%"></div>
+                            </div>
 
-							{% elif object.status == "On Going" %}
-							<span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (On Going)</span>
-							<div class="progress mb-3 col-sm-8">
-								<div class="progress-bar bg-info" role="progressbar"
-									aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
-									style="width: {{ object.progress }}%"></div>
-							</div>
+                            {% elif object.status == "On Going" %}
+                            <span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (On Going)</span>
+                            <div class="progress mb-3 col-sm-8">
+                                <div class="progress-bar bg-info" role="progressbar"
+                                    aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: {{ object.progress }}%"></div>
+                            </div>
 
-							{% elif object.status == "Success" %}
-							<span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (Success)</span>
-							<div class="progress mb-3 col-sm-8">
-								<div class="progress-bar bg-success" role="progressbar"
-									aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
-									style="width: {{ object.progress }}%"></div>
-							</div>
+                            {% elif object.status == "Success" %}
+                            <span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (Success)</span>
+                            <div class="progress mb-3 col-sm-8">
+                                <div class="progress-bar bg-success" role="progressbar"
+                                    aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: {{ object.progress }}%"></div>
+                            </div>
 
-							{% elif object.status == "Canceled" %}
-							<span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (Canceled)</span>
-							<div class="progress mb-3 col-sm-8">
-								<div class="progress-bar bg-danger" role="progressbar"
-									aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
-									style="width: {{ object.progress }}%"></div>
-							</div>
+                            {% elif object.status == "Canceled" %}
+                            <span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (Canceled)</span>
+                            <div class="progress mb-3 col-sm-8">
+                                <div class="progress-bar bg-danger" role="progressbar"
+                                    aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: {{ object.progress }}%"></div>
+                            </div>
 
-							{% endif %}
-						</div>
-						<!-- /.card-progressbar -->
+                            {% endif %}
+                        </div>
+                        {% comment %} /.card-progressbar {% endcomment %}
 
-					</div>
-				</div>
-				<!-- /.card-body -->
-			</div>
-			<!-- /.card -->
-		</div>
-		<!-- /.col (right) -->
-		<div class="card-body">
-			<div class="row">
-				<div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
-					<div class="row">
-						<div class="col-12 col-sm-4">
-							<div class="info-box bg-light">
-								<div class="info-box-content">
-									<span class="info-box-text text-center text-muted">Estimated budget</span>
-									<span class="info-box-number text-center text-muted mb-0">2300</span>
-								</div>
-							</div>
-						</div>
-						<div class="col-12 col-sm-4">
-							<div class="info-box bg-light">
-								<div class="info-box-content">
-									<span class="info-box-text text-center text-muted">Total amount spent</span>
-									<span class="info-box-number text-center text-muted mb-0">2000</span>
-								</div>
-							</div>
-						</div>
-						<div class="col-12 col-sm-4">
-							<div class="info-box bg-light">
-								<div class="info-box-content">
-									<span class="info-box-text text-center text-muted">Estimated project
-										duration</span>
-									<span class="info-box-number text-center text-muted mb-0">20</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-12">
-							<h4>Recent Tasks</h4>
+                    </div>
+                </div>
+                {% comment %} /.card-body {% endcomment %}
+            </div>
+            {% comment %} /.card {% endcomment %}
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                {% comment %} /.card-tools {% endcomment %}
 
-							{% for task in object.tasks.all %}
-							<div class="post clearfix">
-								<div class="user-block">
-									<span class="username">
-										{{ task.title }}
-									</span>
-									<span class="description">task made by <a href="#">{{ task.assigner }}</a> -
-										{{ task.date_created|naturaltime }}</span>
-									{% for member in task.members.all %}
+            </div>
+            {% comment %} /.card-header {% endcomment %}
 
-									{% if 'boxed-bg.png' in member.member.image.url %}
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>Recent Tasks</h4>
 
-									<img class="img-circle img-bordered-sm mr-2"
-										src="{% static 'account/images/user.svg' %}" data-toggle="tooltip"
-										title="{{ member.member.get_full_name }}" />
-									{% else %}
-									<img class="img-circle img-bordered-sm mr-2" src="{{ member.member.image.url }}"
-										data-toggle="tooltip" title="{{ member.member.get_full_name }}" />
-									{% endif %}
+                                {% for task in object.tasks.all %}
+                                <div class="post clearfix">
+                                    <div class="user-block">
+                                        <span class="username">
+                                            {{ task.title }}
+                                        </span>
+                                        <span class="description">task made by <a href="#">{{ task.assigner }}</a> -
+                                            {{ task.date_created|naturaltime }}</span>
+                                        {% for member in task.members.all %}
 
-									{% endfor %}
-								</div>
-								<!-- /.user-block -->
-								<p>
-									{{task.description}}
-								</p>
-								<!-- <p>
-										<a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo
-											File 2</a>
-									</p> -->
-							</div>
-							{% endfor %}
+                                        {% if 'boxed-bg.png' in member.member.get_image %}
+
+                                        <img class="img-circle img-bordered-sm mr-2"
+                                            src="{% static 'account/images/user_2.svg' %}" data-toggle="tooltip"
+                                            title="{{ member.member.get_full_name }}" />
+                                        {% else %}
+                                        <img class="img-circle img-bordered-sm mr-2" src="{{ member.member.get_image }}"
+                                            data-toggle="tooltip" title="{{ member.member.get_full_name }}" />
+                                        {% endif %}
+
+                                        {% endfor %}
+                                    </div>
+                                    {% comment %} /.user-block {% endcomment %}
+                                    <p>
+                                        {{task.description}}
+                                    </p>
+                                    {% comment %} <p>
+                                        <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo
+                                            File 2</a>
+                                    </p> {% endcomment %}
+                                </div>
+                                {% endfor %}
 
 
-						</div>
-					</div>
-				</div>
-				<div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-					<h3 class="text-primary">
-						<i class="fas fa-newspaper"></i> {{object.title}}
-					</h3>
-					<p class="text-muted">{{object.description}}</p>
-					<br />
-					<div class="text-muted">
-						<p class="text-sm">
-							Client Company
-							<b class="d-block">{{object.client}}</b>
-						</p>
-						<p class="text-sm">
-							Project Leader
-							<b class="d-block">{{object.leader}}</b>
-						</p>
-					</div>
-				</div>
-			</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
+                        <h3 class="text-primary">
+                            <i class="fas fa-newspaper"></i> {{object.title}}
+                        </h3>
+                        <p class="text-muted">{{object.description}}</p>
+                        <br />
+                        <div class="text-muted">
+                            <p class="text-sm">
+                                Client Company
+                                <b class="d-block">{{object.client}}</b>
+                            </p>
+                            <p class="text-sm">
+                                Project Leader
+                                <b class="d-block">{{object.leader}}</b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-			<!-- =========================================================== -->
-			<h5 class="mb-2">Members</h5>
-			<div class="row">
-				{% for member_of_project in object.memberofproject_set.all %}
-				<div class="col-md-4">
-					<!-- Widget: user widget style 2 -->
-					<div class="card card-widget widget-user-2 shadow-sm">
-						<!-- Add the bg color to the header using any of the bg-* classes -->
-						<div class="widget-user-header bg-warning">
-							<div class="widget-user-image">
-								<img class="img-circle elevation-2" src="{{ member_of_project.member.image.url }}"
-									alt="User Avatar" />
-							</div>
-							<!-- /.widget-user-image -->
-							<h3 class="widget-user-username">
-								{{ member_of_project.member.get_full_name }}
-							</h3>
-							<h5 class="widget-user-desc">{{ member_of_project.role_in_project }}</h5>
-						</div>
-						<div class="card-footer p-0">
-							<ul class="nav flex-column">
-								<li class="nav-item">
-									<a href="#" class="nav-link">
-										Projects
-										<span
-											class="float-right badge bg-primary">{{member_of_project.member.member_projects.count}}</span>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link">
-										Tasks <span
-											class="float-right badge bg-info">{{member_of_project.tasks.count}}</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<!-- /.widget-user -->
-				</div>
-				<!-- /.col -->
-				{% endfor %}
-			</div>
-			<!-- /.row -->
-		</div>
-		<!-- /.card-body -->
+                {% comment %} =========================================================== {% endcomment %}
+                <h5 class="mb-2">Members</h5>
+                <div class="row">
+                    {% for member_of_project in object.memberofproject_set.all %}
+                    <div class="col-md-4">
+                        {% comment %} Widget: user widget style 2 {% endcomment %}
+                        <div class="card card-widget widget-user-2 shadow-sm">
+                            {% comment %} Add the bg color to the header using any of the bg-* classes {% endcomment %}
+                            <div class="widget-user-header bg-warning">
+                                <div class="widget-user-image">
+                                    <img class="img-circle elevation-2" src="{{ member_of_project.member.get_image }}"
+                                        alt="User Avatar" />
+                                </div>
+                                {% comment %} /.widget-user-image {% endcomment %}
+                                <h3 class="widget-user-username">
+                                    {{ member_of_project.member.get_full_name }}
+                                </h3>
+                                <h5 class="widget-user-desc">{{ member_of_project.role_in_project }}</h5>
+                            </div>
+                            <div class="card-footer p-0">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Projects
+                                            <span
+                                                class="float-right badge bg-primary">{{member_of_project.member.member_projects.count}}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Tasks <span
+                                                class="float-right badge bg-info">{{member_of_project.tasks.count}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% comment %} widget-user {% endcomment %}
+                    </div>
+                    {% comment %} col {% endcomment %}
+                    {% endfor %}
+                </div>
+                {% comment %} row {% endcomment %}
+            </div>
+            {% comment %} card-body {% endcomment %}
+        </div>
+        {% comment %} col (right) {% endcomment %}
+
+        {% comment %} card {% endcomment %}
+
+        {% comment %} card-body {% endcomment %}
 </div>
-<!-- /.card -->
+{% comment %} card {% endcomment %}
 </section>
-<!-- /.content -->
+{% comment %} content {% endcomment %}
 </div>
-<!-- /.content-wrapper -->
+{% comment %} content-wrapper {% endcomment %}
 {% endblock content-wrapper %}
