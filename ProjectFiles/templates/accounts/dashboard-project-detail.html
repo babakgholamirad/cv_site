@@ -15,7 +15,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Project Detail</li>
+                        <li class="breadcrumb-item active">{{object.title}}</li>
                     </ol>
                 </div>
             </div>
@@ -28,7 +28,7 @@
         {% comment %} Default box {% endcomment %}
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{object.title}}</h3>
+                <h3 class="card-title">Project Status</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -39,55 +39,47 @@
                     </button>
                 </div>
             </div>
-            <div class="col-md-6 mt-2">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Project Status</h3>
+
+            {% comment %} /.card-header {% endcomment %}
+            <div class="card-body">
+                <div class="row">
+                    {% if object.status == "On Hold" %}
+                    <span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (On Hold)</span>
+                    <div class="progress mb-3 col-sm-8">
+                        <div class="progress-bar bg-warning" role="progressbar"
+                            aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width: {{ object.progress }}%"></div>
                     </div>
-                    {% comment %} /.card-header {% endcomment %}
-                    <div class="card-body">
-                        <div class="row">
-                            {% if object.status == "On Hold" %}
-                            <span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (On Hold)</span>
-                            <div class="progress mb-3 col-sm-8">
-                                <div class="progress-bar bg-warning" role="progressbar"
-                                    aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
-                                    style="width: {{ object.progress }}%"></div>
-                            </div>
 
-                            {% elif object.status == "On Going" %}
-                            <span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (On Going)</span>
-                            <div class="progress mb-3 col-sm-8">
-                                <div class="progress-bar bg-info" role="progressbar"
-                                    aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
-                                    style="width: {{ object.progress }}%"></div>
-                            </div>
-
-                            {% elif object.status == "Success" %}
-                            <span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (Success)</span>
-                            <div class="progress mb-3 col-sm-8">
-                                <div class="progress-bar bg-success" role="progressbar"
-                                    aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
-                                    style="width: {{ object.progress }}%"></div>
-                            </div>
-
-                            {% elif object.status == "Canceled" %}
-                            <span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (Canceled)</span>
-                            <div class="progress mb-3 col-sm-8">
-                                <div class="progress-bar bg-danger" role="progressbar"
-                                    aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
-                                    style="width: {{ object.progress }}%"></div>
-                            </div>
-
-                            {% endif %}
-                        </div>
-                        {% comment %} /.card-progressbar {% endcomment %}
-
+                    {% elif object.status == "On Going" %}
+                    <span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (On Going)</span>
+                    <div class="progress mb-3 col-sm-8">
+                        <div class="progress-bar bg-info" role="progressbar"
+                            aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width: {{ object.progress }}%"></div>
                     </div>
+
+                    {% elif object.status == "Success" %}
+                    <span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (Success)</span>
+                    <div class="progress mb-3 col-sm-8">
+                        <div class="progress-bar bg-success" role="progressbar"
+                            aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width: {{ object.progress }}%"></div>
+                    </div>
+
+                    {% elif object.status == "Canceled" %}
+                    <span class="col-sm-4"><b>{{ object.progress }}% </b>Completed (Canceled)</span>
+                    <div class="progress mb-3 col-sm-8">
+                        <div class="progress-bar bg-danger" role="progressbar"
+                            aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"
+                            style="width: {{ object.progress }}%"></div>
+                    </div>
+
+                    {% endif %}
                 </div>
-                {% comment %} /.card-body {% endcomment %}
+                {% comment %} /.card-progressbar {% endcomment %}
             </div>
-            {% comment %} /.card {% endcomment %}
+            {% comment %} /.card-body {% endcomment %}
         </div>
         <div class="card">
             <div class="card-header">

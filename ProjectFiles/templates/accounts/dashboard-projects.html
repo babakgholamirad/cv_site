@@ -75,12 +75,12 @@
 						{% for project in object_list %}
 						<tr>
 							<td>
-								{{project.id}}
+								{{ project.id }}
 							</td>
 							<td>
 
 								<!-- Project Title -->
-								<a>
+								<a href="{% url 'project-detail' project.id %}">
 									{{ project.title }}
 								</a>
 								<br />
