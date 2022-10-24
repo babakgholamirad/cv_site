@@ -55,3 +55,4 @@ venv.bak/
 # Statics and Images
 images/
 static/
+/AdminLTE/
