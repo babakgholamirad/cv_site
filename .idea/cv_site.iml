@@ -18,6 +18,10 @@
     </content>
     <orderEntry type="jdk" jdkName="Python 3.10 (cv_site)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="goldenlayout-dark-theme" level="application" />
+    <orderEntry type="library" name="goldenlayout-base" level="application" />
+    <orderEntry type="library" name="goldenlayout" level="application" />
+    <orderEntry type="library" name="jquery-1.11.1" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

@@ -1,108 +1,112 @@
 {% extends 'accounts/dashboard-base.html' %} {% load static %}{% load humanize %}
 <!-- Content Wrapper. Contains page content -->
 {% block more_css %}
-<link rel="stylesheet" href="{% static 'cv/css/custom.css' %}" />
+    <link rel="stylesheet" href="{% static 'cv/css/custom.css' %}"/>
 {% endblock more_css %} {% block content-wrapper %}
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-	<!-- Content Header (Page header) -->
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1>Project Add</h1>
-				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="#">Home</a></li>
-						<li class="breadcrumb-item active">Project Add</li>
-					</ol>
-				</div>
-			</div>
-		</div><!-- /.container-fluid -->
-	</section>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Project Add</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Project Add</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
 
-	<!-- Main content -->
-	<form class="content" method="post" enctype="multipart/form-data">
-		{% csrf_token %}
-		<div class="row">
-			<div class="col-md-6">
-				<div class="card card-primary">
-					<div class="card-header">
-						<h3 class="card-title">General</h3>
+        <!-- Main content -->
+        <form class="content" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">General</h3>
 
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-								<i class="fas fa-minus"></i>
-							</button>
-						</div>
-					</div>
-					<div class="card-body">
-						<div class="form-group">
-							<label for="inputName">Project Title</label>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="inputName">Project Title</label>
 
-							{% if form.title.errors %}
-							<input name="title" type="text" id="inputName" class="form-control is-invalid">
-							{% else %}
-							<input name="title" type="text" id="inputName" class="form-control">
-							{% endif %}
+                                {% if form.title.errors %}
+                                    <input name="title" type="text" id="inputName" class="form-control is-invalid">
+                                {% else %}
+                                    <input name="title" type="text" id="inputName" class="form-control">
+                                {% endif %}
 
-							{% for error in form.title.errors %}
-							<span class="text-danger">{{error|escape}}</span>
-							<br>
-							{% endfor %}
-						</div>
-						<div class="form-group">
-							<label for="inputDescription">Project Description</label>
-							
-							{% if form.description.errors %}
-							<textarea name="description" id="inputDescription" class="form-control is-invalid" rows="4"></textarea>
-							{% else %}
-							<textarea name="description" id="inputDescription" class="form-control" rows="4"></textarea>
-							{% endif %}
+                                {% for error in form.title.errors %}
+                                    <span class="text-danger">{{ error|escape }}</span>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <label for="inputDescription">Project Description</label>
 
-							{% for error in form.description.errors %}
-							<span class="text-danger">{{error|escape}}</span>
-							<br>
-							{% endfor %}
-						</div>
-						<div class="form-group">
-							<label for="inputStatus">Status</label>
+                                {% if form.description.errors %}
+                                    <textarea name="description" id="inputDescription" class="form-control is-invalid"
+                                              rows="4"></textarea>
+                                {% else %}
+                                    <textarea name="description" id="inputDescription" class="form-control"
+                                              rows="4"></textarea>
+                                {% endif %}
 
-							{% if form.status.errors %}
-							<select id="inputStatus" class="form-control is-invalid custom-select" name="status">
-							{% else %}
-							<select id="inputStatus" class="form-control custom-select" name="status">
-							{% endif %}
+                                {% for error in form.description.errors %}
+                                    <span class="text-danger">{{ error|escape }}</span>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <label for="inputStatus">Status</label>
 
-								<option selected disabled>Select one</option>
-								<option>On Hold</option>
-								<option>On Going</option>
-								<option>Canceled</option>
-								<option>Success</option>
-							</select>
-							{% for error in form.status.errors %}
-							<span class="text-danger">{{error|escape}}</span>
-							<br>
-							{% endfor %}
-						</div>
-						<div class="form-group">
-							<label for="inputClientCompany">Client Company</label>
+                                {% if form.status.errors %}
+                                    <select id="inputStatus" class="form-control is-invalid custom-select"
+                                            name="status">
+                                {% else %}
+                                    <select id="inputStatus" class="form-control custom-select" name="status">
+                                {% endif %}
 
-							{% if form.client.errors %}
-							<input name="client" type="text" id="inputClientCompany" class="form-control is-invalid">
-							{% else %}
-							<input name="client" type="text" id="inputClientCompany" class="form-control">
-							{% endif %}
+                                <option selected disabled>Select one</option>
+                                <option>On Hold</option>
+                                <option>On Going</option>
+                                <option>Canceled</option>
+                                <option>Success</option>
+                                </select>
+                                {% for error in form.status.errors %}
+                                    <span class="text-danger">{{ error|escape }}</span>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <label for="inputClientCompany">Client Company</label>
 
-							{% for error in form.client.errors %}
-							<span class="text-danger">{{error|escape}}</span>
-							<br>
-							{% endfor %}
-						</div>
-						
-						{% comment %}
-							<!-- <div class="form-group">
+                                {% if form.client.errors %}
+                                    <input name="client" type="text" id="inputClientCompany"
+                                           class="form-control is-invalid">
+                                {% else %}
+                                    <input name="client" type="text" id="inputClientCompany" class="form-control">
+                                {% endif %}
+
+                                {% for error in form.client.errors %}
+                                    <span class="text-danger">{{ error|escape }}</span>
+                                    <br>
+                                {% endfor %}
+                            </div>
+
+                            {% comment %}
+                                <!-- <div class="form-group">
 								<label for="inputProjectLeader">Project Leader</label>
 	
 								{% if form.leader.errors %}
@@ -116,89 +120,90 @@
 								<br>
 								{% endfor %}
 							</div> -->
-						{% endcomment %}
-							
-						<div class="form-group has-error">
-							<label for="reservationdatetime">Project Start Date</label>
-							<div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                            {% endcomment %}
 
-								{% if form.start_date.errors %}
-								<input name="start_date" type="text"
-									class="form-control is-invalid datetimepicker-input"
-									data-target="#reservationdatetime" />
-								{% else %}
-								<input name="start_date" type="text" class="form-control datetimepicker-input"
-									data-target="#reservationdatetime" />
-								{% endif %}
+                            <div class="form-group has-error">
+                                <label for="reservationdatetime">Project Start Date</label>
+                                <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
 
-								<div class="input-group-append" data-target="#reservationdatetime"
-									data-toggle="datetimepicker">
-									<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-								</div>
-							</div>
+                                    {% if form.start_date.errors %}
+                                        <input name="start_date" type="text"
+                                               class="form-control is-invalid datetimepicker-input"
+                                               data-target="#reservationdatetime"/>
+                                    {% else %}
+                                        <input name="start_date" type="text" class="form-control datetimepicker-input"
+                                               data-target="#reservationdatetime"/>
+                                    {% endif %}
 
-							{% for error in form.start_date.errors %}
-							<span class="text-danger">{{error|escape}}</span>
-							<br>
-							{% endfor %}
+                                    <div class="input-group-append" data-target="#reservationdatetime"
+                                         data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
 
-						</div>
-					</div>
-					<!-- /.card-body -->
-				</div>
-				<!-- /.card -->
-			</div>
+                                {% for error in form.start_date.errors %}
+                                    <span class="text-danger">{{ error|escape }}</span>
+                                    <br>
+                                {% endfor %}
 
-			{% comment %}
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
 
-			<div class="col-md-6">
-				<div class="card card-secondary">
-					<div class="card-header">
-						<h3 class="card-title">Budget</h3>
+                {% comment %}
 
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-								<i class="fas fa-minus"></i>
-							</button>
-						</div>
-					</div>
-					<div class="card-body">
-						<div class="form-group">
-							<label for="inputEstimatedBudget">Estimated budget</label>
-							<input type="number" id="inputEstimatedBudget" class="form-control">
-						</div>
-						<div class="form-group">
-							<label for="inputSpentBudget">Total amount spent</label>
-							<input type="number" id="inputSpentBudget" class="form-control">
-						</div>
-						<div class="form-group">
-							<label for="inputEstimatedDuration">Estimated project duration</label>
-							<input type="number" id="inputEstimatedDuration" class="form-control">
-						</div>
-					</div>
-					<!-- /.card-body -->
-				</div>
-				<!-- /.card -->
-			</div>
-			{% endcomment %}
-		</div>
-		<div class="row">
-			<div class="col-12">
-				<a href="." class="btn btn-secondary">Cancel</a>
-				<input type="submit" value="Create new Porject" class="btn btn-success float-right">
-			</div>
-		</div>
-	</form>
-	<!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+                    <div class="col-md-6">
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <h3 class="card-title">Budget</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                            title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="inputEstimatedBudget">Estimated budget</label>
+                                    <input type="number" id="inputEstimatedBudget" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSpentBudget">Total amount spent</label>
+                                    <input type="number" id="inputSpentBudget" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEstimatedDuration">Estimated project duration</label>
+                                    <input type="number" id="inputEstimatedDuration" class="form-control">
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                {% endcomment %}
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <a href="." class="btn btn-secondary">Cancel</a>
+                    <input type="submit" value="Create new Porject" class="btn btn-success float-right">
+                </div>
+            </div>
+        </form>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
 {% endblock content-wrapper %}
 {% block custom_js %}
-<script>
-	$("form").submit(function () {
-		console.log($("form").serializeArray());
-		console.log($("form").serializeArray());
+    <script>
+        $("form").submit(function () {
+            console.log($("form").serializeArray());
+            console.log($("form").serializeArray());
 
-	});
-</script>
+        });
+    </script>
 {% endblock custom_js %}

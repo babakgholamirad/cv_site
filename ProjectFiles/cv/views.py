@@ -1,4 +1,4 @@
-from cv.models import Project
+from .models import Project
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, TemplateView, CreateView
 # Create your views here.
@@ -37,3 +37,7 @@ class ProjectCreateView(CreateView):
 		user = self.request.user
 		form.instance.leader = user
 		return super(ProjectCreateView, self).form_valid(form)
+
+
+class ProfileView(TemplateView):
+	template_name = 'cv/profile_template.html'
