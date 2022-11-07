@@ -21,8 +21,6 @@
     <link rel="stylesheet" href="{% static 'account/vendor/overlayScrollbars/css/OverlayScrollbars.min.css' %}"/>
     {% comment %} Theme style {% endcomment %}
     <link rel="stylesheet" href="{% static 'account/css/adminlte.min.css' %}"/>
-    {% comment %} GoldenLayout style {% endcomment %}
-    <link rel="stylesheet" href="{% static 'cv/css/customGoldenLayout.css' %}"/>
 
     {% block more_css %} {% endblock more_css %}
 </head>
@@ -30,10 +28,10 @@
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
     {% comment %} Preloader {% endcomment %}
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__wobble" src="{% static 'account/images/AdminLTELogo.png' %}" alt="AdminLTELogo"
-             height="60" width="60"/>
-    </div>
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__wobble" src="{% static 'account/images/AdminLTELogo.png' %}" alt="AdminLTELogo"
+                 height="60" width="60"/>
+        </div>
 
     {% comment %} Navbar {% endcomment %}
     <nav class="main-header navbar navbar-expand navbar-dark">
@@ -120,8 +118,9 @@
                             <p>Projects</p>
                         </a>
                     </li>
-                    <li class="nav-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
-                        <a href="{% url 'profile' %}" class="nav-link">
+                    <li class="nav-item">
+                        <a href="{% url 'profile' %}"
+                           class="nav-link {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
                             <i class="nav-icon fas fa-user"></i>
                             <p>Profile</p>
                         </a>

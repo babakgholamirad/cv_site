@@ -1,56 +1,75 @@
 {% extends 'accounts/dashboard-base.html' %}
 {% load static %}
 {% block more_css %}
+    {% comment %}GoldenLayout style {% endcomment %}
+    <link type="text/css" rel="stylesheet" href="{% static 'cv/css/goldenlayout-base.css' %}"/>
+    <link type="text/css" rel="stylesheet"
+          href="{% static 'cv/css/goldenlayout-dark-theme.css' %}"/>
 
+    {% comment %}Custom GoldenLayout style {% endcomment %}
+    <link rel="stylesheet" href="{% static 'cv/css/customGoldenLayout.css' %}"/>
 {% endblock more_css %}
 
 
 {% block content-wrapper %}
 
+    <!-- golden-layout-wrapper -->
     <div id="goldenLayout" class="content-wrapper">
 
     </div>
+    <!-- /.golden-layout-wrapper -->
 
 {% endblock content-wrapper %}
 {% block footer %}
+
 {% endblock footer %}
 {% block custom_js %}
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="https://golden-layout.com/files/latest/js/goldenlayout.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://golden-layout.com/files/latest/css/goldenlayout-base.css"/>
-    <link type="text/css" rel="stylesheet"
-          href="https://golden-layout.com/files/latest/css/goldenlayout-dark-theme.css"/>
+    <script type="text/javascript" src="{% static 'cv/js/jquery-1.11.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'cv/js/goldenlayout.js' %}"></script>
+
 
     <script>
-        var config = {
-            content: [{
-                type: 'row',
-                content: [{
-                    type: 'component',
-                    componentName: 'testComponent',
-                    componentState: {label: 'A'}
-                }, {
-                    type: 'column',
-                    content: [{
-                        type: 'component',
-                        componentName: 'testComponent',
-                        componentState: {label: 'B'}
-                    }, {
-                        type: 'component',
-                        componentName: 'testComponent',
-                        componentState: {label: 'C'}
-                    }]
-                }]
-            }]
-        };
+		const config = {
+			content: [{
+				type: 'row',
+				content: [{
+					type: 'component',
+					componentName: 'testComponent',
+					componentState: {label: 'A'}
+				}, {
+					type: 'column',
+					content: [{
+						type: 'component',
+						componentName: 'testComponent',
+						componentState: {label: 'B'}
+					}, {
+						type: 'component',
+						componentName: 'testComponent',
+						componentState: {label: 'C'}
+					}]
+				}]
+			}]
+		};
 
-        var myLayout = new GoldenLayout(config, $("#goldenLayout"));
+		var myLayout,
+			savedState = localStorage.getItem('savedState');
 
-        myLayout.registerComponent('testComponent', function (container, componentState) {
-            container.getElement().html('<h2>' + componentState.label + '</h2>');
-        });
+		if (savedState !== null) {
+			myLayout = new GoldenLayout(JSON.parse(savedState), $('#goldenLayout'));
+		} else {
+			myLayout = new GoldenLayout(config, $('#goldenLayout'));
+		}
 
-        myLayout.init();
+		myLayout.registerComponent('testComponent', function (container, componentState) {
+			container.getElement().html('<h2>' + componentState.label + '</h2>');
+		});
+
+		myLayout.on('', function () {
+			var state = JSON.stringify(myLayout.toConfig());
+			localStorage.setItem('savedState', state);
+		});
+
+		myLayout.init();
     </script>
 
 {% endblock custom_js %}
