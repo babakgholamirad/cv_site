@@ -48,7 +48,7 @@
         this.showISOWeekNumbers = false;
         this.showCustomRangeLabel = true;
         this.timePicker = false;
-        this.timePicker24Hour = false;
+        this.timePicker24Hour = true;
         this.timePickerIncrement = 1;
         this.timePickerSeconds = false;
         this.linkedCalendars = true;
@@ -70,7 +70,8 @@
 
         this.locale = {
             direction: 'ltr',
-            format: moment.localeData().longDateFormat('L'),
+            // format: moment.localeData().longDateFormat('L'),
+            format: 'YYYY-MM-DD HH:mm:ss',
             separator: ' - ',
             applyLabel: 'Apply',
             cancelLabel: 'Cancel',
