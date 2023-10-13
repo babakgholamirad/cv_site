@@ -71,7 +71,7 @@ class Task(models.Model):
 
 
 class Project(models.Model):
-	title = models.CharField(max_length=200, blank=True)
+	title = models.CharField(max_length=200)
 	leader = models.ForeignKey('cv.User', on_delete=models.SET_NULL, null=True)
 	client = models.CharField(max_length=200, blank=True)
 
@@ -99,14 +99,14 @@ class Project(models.Model):
 	start_date = models.DateTimeField()
 
 	def __str__(self):
-		return(self.title)
+		return (self.title)
 
 	def short_description(self):
 		return Truncator(self.description).words(20)
 
 	def tasks(self):
 		return Task.objects.filter(members__project__id=self.id)
-	
+
 	def get_absolute_url(self):
 		return reverse('project-detail', kwargs={'pk': self.pk})
 
@@ -119,6 +119,7 @@ class MemberOfProject(models.Model):
 	date_left = models.DateTimeField(null=True, blank=True)
 
 	def __str__(self):
-		return("{} ({}) of {}".format(self.member.get_full_name(),
-									  self.role_in_project,
-									  self.project))
+		return ("{} ({}) of {}"
+				.format(self.member.get_full_name(),
+						self.role_in_project,
+						self.project))

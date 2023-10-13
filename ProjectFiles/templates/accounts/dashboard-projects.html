@@ -36,12 +36,18 @@
 				<h3 class="card-title">Projects</h3>
 
 				<div class="card-tools">
-					<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+					<a href="{% url 'project-add' %}">
+						<button class="btn bg-gradient-success btn-tool" type="button">
+							<span>New Project <i class="fas fa-plus"></i> </span>
+						</button>
+					</a>
+					<button class="btn btn-tool" type="button" data-card-widget="collapse" title="Collapse">
 						<i class="fas fa-minus"></i>
 					</button>
-					<button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+					<button class="btn btn-tool" type="button" data-card-widget="remove" title="Remove">
 						<i class="fas fa-times"></i>
 					</button>
+					
 				</div>
 			</div>
 			<div class="card-body p-0">
@@ -80,10 +86,10 @@
 							<td>
 
 								<!-- Project Title -->
-								<a href="{% url 'project-detail' project.id %}">
+								<a href="{{ project.get_absolute_url }}">
 									{{ project.title }}
 								</a>
-								<br />
+								<br/>
 
 								<!-- Project Create Date -->
 								<small>
@@ -143,7 +149,7 @@
 									</i>
 									Edit
 								</a>
-								<a class="btn btn-danger btn-sm" href="#">
+								<a class="btn btn-danger btn-sm" href="{%url 'project-delete' project.id %}">
 									<i class="fas fa-trash">
 									</i>
 									Delete
