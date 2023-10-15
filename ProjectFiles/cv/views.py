@@ -1,4 +1,4 @@
-from .models import Project
+from .models import Project, Member
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, TemplateView, CreateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -51,6 +51,11 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
 	def get_success_url(self):
 		return reverse('project-detail', kwargs={'pk': self.object.pk})
 
+	def get_context_data(self, *args, **kwargs):
+		context = super(CreateView, self).get_context_data(*args, **kwargs)
+		context['all_members'] = Member.objects.all()
+		return context
+
 
 class ProjectDeleteView(LoginRequiredMixin, DeleteView):
 	model = Project
@@ -62,6 +67,7 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
 
 	def get_success_url(self):
 		return reverse('projects')
+
 
 class ProfileView(LoginRequiredMixin, TemplateView):
 	template_name = 'cv/profile_template.html'
