@@ -6,6 +6,8 @@
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>CV Site</title>
+	
+	{% block more_css %} {% endblock more_css %}
 
 	{% comment %} prevent showing 404 for favicon.ico {% endcomment %}
 	<link rel="shortcut icon" href="#"/>
@@ -28,7 +30,7 @@
 	{% comment %} Theme style {% endcomment %}
 	<link rel="stylesheet" href="{% static 'account/css/adminlte.min.css' %}"/>
 
-	{% block more_css %} {% endblock more_css %}
+
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
