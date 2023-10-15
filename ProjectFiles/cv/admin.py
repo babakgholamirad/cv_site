@@ -14,9 +14,10 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
     list_display = [
-        "user",
+        "get_full_name",
         "first_name",
         "last_name",
+        "image_preview",
     ]
 
 

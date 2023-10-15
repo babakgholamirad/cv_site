@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import Truncator
+from django.utils.html import mark_safe
 from django.core.validators import MaxValueValidator, MinValueValidator
 from utils.useful_functions import get_accronym
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import reverse
-
 
 # Create your models here.
 
@@ -16,7 +16,7 @@ class User(AbstractUser):
 
 class Member(models.Model):
 	user = models.ForeignKey("cv.User", null=True,
-							 blank=True, on_delete=models.SET_NULL)
+							blank=True, on_delete=models.SET_NULL)
 	first_name = models.CharField(max_length=150)
 	last_name = models.CharField(max_length=150)
 	image = models.ImageField(upload_to='images/', default=staticfiles_storage.url(
@@ -37,6 +37,9 @@ class Member(models.Model):
 			return self.user.image
 		return default_image_url
 
+	def image_preview(self):
+		return mark_safe(f'<img src="/{self.image}" style="border-radius: 50%;border: 2px solid gray;padding: 1px;" width="40"/>')
+	
 	def __str__(self):
 		return self.get_full_name()
 
