@@ -62,7 +62,7 @@ class Task(models.Model):
 		"cv.MemberOfProject", related_name='tasks')
 	tags = models.ManyToManyField("cv.Tag")
 	description = models.TextField()
-	date_created = models.DateTimeField()
+	date_created = models.DateTimeField(auto_now=True)
 	deadline = models.DateTimeField(null=True, blank=True)
 	finished = models.BooleanField(default=False, null=False, blank=False)
 
@@ -118,7 +118,7 @@ class MemberOfProject(models.Model):
 	member = models.ForeignKey('cv.Member', on_delete=models.CASCADE)
 	project = models.ForeignKey('cv.Project', on_delete=models.CASCADE)
 	role_in_project = models.CharField(max_length=150, null=False, blank=False)
-	date_joined = models.DateTimeField()
+	date_joined = models.DateTimeField(auto_now=True)
 	date_left = models.DateTimeField(null=True, blank=True)
 
 	def __str__(self):
