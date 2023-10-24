@@ -201,26 +201,28 @@
 {% comment %} AdminLTE for demo purposes {% endcomment %}
 <script src="{% static 'account/js/demo.js' %}"></script>
 
-{% if messages %}
+
 <script>
 	var Toast = Swal.mixin({
 		toast: true,
 		position: 'top-end',
 		showConfirmButton: false,
-		timer: 3000
+		timer: 8000
 	  });
 
 	$(function () {
-		{% for message in messages %}
-			{% if message.tags == 'debug' %}
-				Toast.fire({'icon':'info','title':'{{ message }}'});
-			{% else %}
-				Toast.fire({'icon':'{{ message.tags }}','title':'{{ message }}'});
-			{% endif %}
-		{% endfor %}
+		{% if messages %}
+			{% for message in messages %}
+				{% if message.tags == 'debug' %}
+					Toast.fire({'icon':'info','title':'{{ message }}'});
+				{% else %}
+					Toast.fire({'icon':'{{ message.tags }}','title':'{{ message }}'});
+				{% endif %}
+			{% endfor %}
+		{% endif %}
 	});
 </script>
-{% endif %}
+
 
 {% block custom_js %} {% endblock custom_js %}
 </body>
