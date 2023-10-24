@@ -1,10 +1,12 @@
 from .models import Project, Member
+from .forms import ProjectForm
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, TemplateView, CreateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.contrib import messages
+
 
 # Create your views here.
 
@@ -36,11 +38,13 @@ class ProjectDetailView(LoginRequiredMixin, DetailView):
 class ProjectCreateView(LoginRequiredMixin, CreateView):
 	model = Project
 	template_name = 'accounts/dashboard-project-add.html'
-	fields = ['title',
-			  'client',
-			  'description',
-			  'status',
-			  'start_date']
+	form_class = ProjectForm
+	# fields = ['title',
+	# 		  'client',
+	# 		  'members',
+	# 		  'description',
+	# 		  'status',
+	# 		  'start_date']
 
 	def form_valid(self, form):
 		user = self.request.user
