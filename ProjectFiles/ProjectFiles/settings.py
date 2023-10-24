@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'nested_inline',
     'django.contrib.humanize',
-    'cv.apps.CvConfig'
+    'cv.apps.CvConfig',
+    'django_select2',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +143,20 @@ EMAIL_HOST_PASSWORD = 'p7{8;XEGg3LKz\zw:n4jm`Sq3<BGTD'
 EMAIL_PORT = 587
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    },
+    "select2": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/2",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+# Tell select2 which cache configuration to use:
+SELECT2_CACHE_BACKEND = "select2"
